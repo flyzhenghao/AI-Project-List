@@ -296,6 +296,41 @@
                 color: #888;
             }
 
+            /* Progress Bar */
+            .progress-bar-container {
+                flex: 1;
+                max-width: 300px;
+                height: 8px;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 10px;
+                overflow: hidden;
+                display: flex;
+                margin-left: 16px;
+            }
+
+            .progress-segment {
+                height: 100%;
+                transition: width 0.3s ease;
+            }
+
+            .progress-segment.initial {
+                background: #6366f1;
+            }
+
+            .progress-segment.ing {
+                background: #f59e0b;
+            }
+
+            .progress-segment.done {
+                background: #10b981;
+            }
+
+            .category-header {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
             /* Subcategory */
             .subcategory-section {
                 margin-left: 20px;
@@ -912,7 +947,7 @@
                     >GitHub</a
                 >
             </p>
-            <div class="version-badge">v1.1.1</div>
+            <div class="version-badge">v1.2.0</div>
         </footer>
 
         <!-- Modal -->
@@ -1188,7 +1223,7 @@
 
         <script>
             // Version
-            const APP_VERSION = "v1.1.1";
+            const APP_VERSION = "v1.2.0";
 
             // Current language
             let currentLang = localStorage.getItem("lang") || "en";
@@ -1722,6 +1757,59 @@
                     projects.filter((p) => p.status === "initial").length;
             }
 
+            // Calculate progress statistics for a list of projects
+            function calculateProgress(projectList) {
+                const total = projectList.length;
+                if (total === 0) {
+                    return {
+                        initial: 0,
+                        ing: 0,
+                        done: 0,
+                        initialPct: 0,
+                        ingPct: 0,
+                        donePct: 0,
+                    };
+                }
+
+                const initial = projectList.filter(
+                    (p) => p.status === "initial",
+                ).length;
+                const ing = projectList.filter(
+                    (p) => p.status === "ing",
+                ).length;
+                const done = projectList.filter(
+                    (p) => p.status === "done",
+                ).length;
+
+                return {
+                    initial,
+                    ing,
+                    done,
+                    initialPct: ((initial / total) * 100).toFixed(1),
+                    ingPct: ((ing / total) * 100).toFixed(1),
+                    donePct: ((done / total) * 100).toFixed(1),
+                };
+            }
+
+            // Render progress bar HTML
+            function renderProgressBar(stats) {
+                if (
+                    stats.initial === 0 &&
+                    stats.ing === 0 &&
+                    stats.done === 0
+                ) {
+                    return "";
+                }
+
+                return `
+                    <div class="progress-bar-container" title="${t("statusInitial")}: ${stats.initial} | ${t("statusInProgress")}: ${stats.ing} | ${t("statusDone")}: ${stats.done}">
+                        ${stats.initial > 0 ? `<div class="progress-segment initial" style="width: ${stats.initialPct}%"></div>` : ""}
+                        ${stats.ing > 0 ? `<div class="progress-segment ing" style="width: ${stats.ingPct}%"></div>` : ""}
+                        ${stats.done > 0 ? `<div class="progress-segment done" style="width: ${stats.donePct}%"></div>` : ""}
+                    </div>
+                `;
+            }
+
             function renderProjects() {
                 const container = document.getElementById("projects-container");
                 const search = document
@@ -1781,13 +1869,24 @@
                             const categoryDisplayName =
                                 getCategoryDisplayName(category);
 
+                            // Calculate progress for all projects in this category
+                            const allCategoryProjects = [
+                                ...data.noSub,
+                                ...Object.values(data.subs).flat(),
+                            ];
+                            const categoryProgress =
+                                calculateProgress(allCategoryProjects);
+
                             let html = `
                         <div class="category-section">
-                            <h2 class="category-title">
-                                <span class="category-icon">${categoryIcons[category] || "📁"}</span>
-                                ${categoryDisplayName}
-                                <span class="category-count">${totalCount}</span>
-                            </h2>
+                            <div class="category-header">
+                                <h2 class="category-title">
+                                    <span class="category-icon">${categoryIcons[category] || "📁"}</span>
+                                    ${categoryDisplayName}
+                                    <span class="category-count">${totalCount}</span>
+                                </h2>
+                                ${renderProgressBar(categoryProgress)}
+                            </div>
                     `;
 
                             // Render projects without subcategory
@@ -1804,13 +1903,18 @@
                                 ([subcat, subProjects]) => {
                                     const subcatDisplayName =
                                         getSubcategoryDisplayName(subcat);
+                                    const subcatProgress =
+                                        calculateProgress(subProjects);
                                     html += `
                             <div class="subcategory-section">
-                                <h3 class="subcategory-title">
-                                    <span class="subcategory-icon">${subcategoryIcons[subcat] || "📂"}</span>
-                                    ${subcatDisplayName}
-                                    <span class="category-count">${subProjects.length}</span>
-                                </h3>
+                                <div class="category-header">
+                                    <h3 class="subcategory-title">
+                                        <span class="subcategory-icon">${subcategoryIcons[subcat] || "📂"}</span>
+                                        ${subcatDisplayName}
+                                        <span class="category-count">${subProjects.length}</span>
+                                    </h3>
+                                    ${renderProgressBar(subcatProgress)}
+                                </div>
                                 <div class="projects-grid">
                                     ${subProjects.map((p) => renderProjectCard(p, true)).join("")}
                                 </div>
