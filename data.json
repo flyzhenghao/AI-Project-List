@@ -1,6 +1,6 @@
 {
   "version": "v1.1.0",
-  "lastUpdated": "2025-12-05T10:52:29.810Z",
+  "lastUpdated": "2025-12-05T10:56:02.815Z",
   "projects": [
     {
       "name": "产品开发方法论分析",
@@ -135,15 +135,15 @@
       "endDate": ""
     },
     {
-      "id": 13,
       "name": "2025 Xmas Trip",
       "nameEn": "2025-xmas-trip",
       "category": "旅行",
       "subcategory": "",
       "status": "done",
-      "repo": "",
+      "repo": "https://github.com/flyzhenghao/2025-Xmas-Trip",
       "startDate": "",
-      "endDate": ""
+      "endDate": "",
+      "id": 13
     },
     {
       "id": 14,
