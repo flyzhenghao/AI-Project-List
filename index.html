@@ -947,7 +947,7 @@
                     >GitHub</a
                 >
             </p>
-            <div class="version-badge">v1.2.1</div>
+            <div class="version-badge">v1.2.2</div>
         </footer>
 
         <!-- Modal -->
@@ -1223,7 +1223,7 @@
 
         <script>
             // Version
-            const APP_VERSION = "v1.2.1";
+            const APP_VERSION = "v1.2.2";
 
             // Current language
             let currentLang = localStorage.getItem("lang") || "en";
@@ -2349,28 +2349,41 @@
                         },
                     );
 
-                    if (button) {
-                        button.innerHTML = originalText;
-                        button.disabled = false;
-                    }
-
                     if (updateResponse.ok) {
+                        if (button) {
+                            button.innerHTML = originalText;
+                            button.disabled = false;
+                        }
                         alert(t("savedToGithub"));
+                        console.log("Successfully saved to GitHub");
                     } else {
                         const errorData = await updateResponse.json();
                         console.error("GitHub API Error:", errorData);
+                        console.error("Status:", updateResponse.status);
+                        console.error(
+                            "Status Text:",
+                            updateResponse.statusText,
+                        );
+
+                        if (button) {
+                            button.innerHTML = originalText;
+                            button.disabled = false;
+                        }
+
                         throw new Error(
                             errorData.message || "Failed to update file",
                         );
                     }
                 } catch (error) {
                     console.error("Error saving to GitHub:", error);
-                    alert(t("saveToGithubError") + "\n\n" + error.message);
+                    console.error("Error details:", error.stack);
 
                     if (button) {
                         button.innerHTML = originalText;
                         button.disabled = false;
                     }
+
+                    alert(t("saveToGithubError") + "\n\n" + error.message);
                 }
             }
         </script>
