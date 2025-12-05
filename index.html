@@ -847,7 +847,7 @@
                     </button>
                     <button
                         class="btn btn-secondary"
-                        onclick="saveToGitHub()"
+                        onclick="saveToGitHub(event)"
                         title="Save to GitHub automatically"
                     >
                         💾 <span data-i18n="saveToGithub">Save to GitHub</span>
@@ -947,7 +947,7 @@
                     >GitHub</a
                 >
             </p>
-            <div class="version-badge">v1.2.0</div>
+            <div class="version-badge">v1.2.1</div>
         </footer>
 
         <!-- Modal -->
@@ -1223,7 +1223,7 @@
 
         <script>
             // Version
-            const APP_VERSION = "v1.2.0";
+            const APP_VERSION = "v1.2.1";
 
             // Current language
             let currentLang = localStorage.getItem("lang") || "en";
