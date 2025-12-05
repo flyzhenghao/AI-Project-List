@@ -1,17 +1,17 @@
 {
-  "version": "v1.0.1",
-  "lastUpdated": "2025-12-05T10:30:25.804Z",
+  "version": "v1.1.0",
+  "lastUpdated": "2025-12-05T10:50:50.042Z",
   "projects": [
     {
-      "id": 1,
       "name": "产品开发方法论分析",
       "nameEn": "product-design-methodology-generator",
       "category": "元产品",
       "subcategory": "",
       "status": "done",
-      "repo": "",
+      "repo": "https://github.com/flyzhenghao/product-design-methodology-generator",
       "startDate": "",
-      "endDate": ""
+      "endDate": "",
+      "id": 1
     },
     {
       "id": 2,
