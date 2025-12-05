@@ -1,0 +1,22 @@
+{
+  "version": "v1.0.1",
+  "lastUpdated": "2025-12-05T23:30:00Z",
+  "projects": [
+    { "id": 1, "name": "产品开发方法论分析", "nameEn": "product-design-methodology-generator", "category": "元产品", "subcategory": "", "status": "done", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 2, "name": "竞品分析", "nameEn": "competitor-analysis", "category": "元产品", "subcategory": "", "status": "initial", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 3, "name": "产品开发计划一览表", "nameEn": "product-dev-overview", "category": "元产品", "subcategory": "", "status": "ing", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 4, "name": "Next Gen AI Agent", "nameEn": "next-gen-ai-agent", "category": "工作", "subcategory": "", "status": "initial", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 5, "name": "Business Website", "nameEn": "business-website", "category": "工作", "subcategory": "", "status": "initial", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 6, "name": "Street Hip-hop Video", "nameEn": "street-hiphop-video", "category": "工作", "subcategory": "AI Marketing", "status": "initial", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 7, "name": "AI Impact On Real Estate", "nameEn": "ai-real-estate", "category": "工作", "subcategory": "", "status": "ing", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 8, "name": "个人复盘,人生日记", "nameEn": "life-review-diary", "category": "生活", "subcategory": "", "status": "initial", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 9, "name": "时间记录", "nameEn": "time-tracking", "category": "生活", "subcategory": "", "status": "initial", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 10, "name": "你一生的旅程", "nameEn": "life-journey", "category": "生活", "subcategory": "", "status": "initial", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 11, "name": "奇特的一生", "nameEn": "extraordinary-life", "category": "生活", "subcategory": "", "status": "initial", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 12, "name": "2025 Xmas Camping", "nameEn": "2025-xmas-camping", "category": "旅行", "subcategory": "", "status": "done", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 13, "name": "2025 Xmas Trip", "nameEn": "2025-xmas-trip", "category": "旅行", "subcategory": "", "status": "done", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 14, "name": "Yang 学习作业", "nameEn": "rangitoto-review-Y9", "category": "学习", "subcategory": "", "status": "done", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 15, "name": "书籍核心内容提取,动态演示", "nameEn": "vant-emergence", "category": "读书", "subcategory": "", "status": "initial", "repo": "", "startDate": "", "endDate": "" },
+    { "id": 16, "name": "学以致用:决策系统", "nameEn": "decision-making-system", "category": "读书", "subcategory": "", "status": "initial", "repo": "https://github.com/flyzhenghao/decision-making-system", "startDate": "", "endDate": "" }
+  ]
+}
