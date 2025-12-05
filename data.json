@@ -1,6 +1,6 @@
 {
   "version": "v1.2.1",
-  "lastUpdated": "2025-12-05T11:05:47.043Z",
+  "lastUpdated": "2025-12-05T11:07:41.780Z",
   "projects": [
     {
       "name": "产品开发方法论分析",
@@ -30,7 +30,7 @@
       "category": "元产品",
       "subcategory": "",
       "status": "done",
-      "repo": "",
+      "repo": "https://github.com/flyzhenghao/AI-Project-List",
       "startDate": "",
       "endDate": "2025-12-05",
       "id": 3
