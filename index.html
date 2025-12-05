@@ -432,11 +432,59 @@
                 margin-bottom: 12px;
             }
 
-            /* Status Selector */
+            /* Status Badge */
+            .status-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 11px;
+                font-weight: 600;
+                padding: 4px 12px;
+                border-radius: 12px;
+                cursor: pointer;
+                transition: all 0.2s;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                border: 1px solid transparent;
+            }
+
+            .status-badge:hover {
+                transform: scale(1.05);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            .status-badge.done {
+                background: rgba(16, 185, 129, 0.2);
+                color: #10b981;
+                border-color: rgba(16, 185, 129, 0.3);
+            }
+
+            .status-badge.ing {
+                background: rgba(245, 158, 11, 0.2);
+                color: #f59e0b;
+                border-color: rgba(245, 158, 11, 0.3);
+            }
+
+            .status-badge.initial {
+                background: rgba(99, 102, 241, 0.2);
+                color: #6366f1;
+                border-color: rgba(99, 102, 241, 0.3);
+            }
+
+            .status-badge-icon {
+                font-size: 8px;
+            }
+
+            /* Status Selector - Hidden by default, shown on badge click */
             .status-selector {
-                display: flex;
+                display: none;
                 gap: 8px;
-                margin-bottom: 16px;
+                margin-top: 12px;
+                margin-bottom: 12px;
+            }
+
+            .status-selector.active {
+                display: flex;
             }
 
             .status-btn {
@@ -947,7 +995,7 @@
                     >GitHub</a
                 >
             </p>
-            <div class="version-badge">v1.2.3</div>
+            <div class="version-badge">v1.3.0</div>
         </footer>
 
         <!-- Modal -->
@@ -1223,7 +1271,7 @@
 
         <script>
             // Version
-            const APP_VERSION = "v1.2.3";
+            const APP_VERSION = "v1.3.0";
 
             // Current language
             let currentLang = localStorage.getItem("lang") || "en";
@@ -1939,10 +1987,24 @@
                     initial: t("statusInitial"),
                 };
 
+                const statusIcons = {
+                    done: "✅",
+                    ing: "🔄",
+                    initial: "📋",
+                };
+
                 return `
-                <div class="project-card ${hasSubcategory ? "has-subcategory" : ""}">
+                <div class="project-card ${hasSubcategory ? "has-subcategory" : ""}" data-project-id="${project.id}">
                     <div class="card-header">
-                        <h3 class="project-name">${project.name}</h3>
+                        <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+                            <h3 class="project-name">${project.name}</h3>
+                            <span class="status-badge ${project.status}"
+                                  onclick="toggleStatusSelector(${project.id})"
+                                  title="Click to change status">
+                                <span class="status-badge-icon">${statusIcons[project.status]}</span>
+                                ${statusLabels[project.status]}
+                            </span>
+                        </div>
                         <div class="card-actions">
                             <button class="action-btn" onclick="editProject(${project.id})" title="Edit">✏️</button>
                             <button class="action-btn" onclick="deleteProject(${project.id})" title="Delete">🗑️</button>
@@ -1950,12 +2012,12 @@
                     </div>
                     <p class="project-name-en">${project.nameEn}</p>
                     ${project.subcategory ? `<span class="project-subcategory-tag">${getSubcategoryDisplayName(project.subcategory)}</span>` : ""}
-                    <div class="status-selector">
+                    <div class="status-selector" id="status-selector-${project.id}">
                         ${["initial", "ing", "done"]
                             .map(
                                 (status) => `
                             <button class="status-btn ${status} ${project.status === status ? "active" : ""}"
-                                    onclick="changeStatus(${project.id}, '${status}')">
+                                    onclick="changeStatus(${project.id}, '${status}'); toggleStatusSelector(${project.id});">
                                 ${project.status === status ? '<span class="pulse-dot">●</span>' : ""}
                                 ${statusLabels[status]}
                             </button>
@@ -1995,6 +2057,27 @@
                     project.status = newStatus;
                     saveToStorage();
                     renderProjects();
+                }
+            }
+
+            function toggleStatusSelector(id) {
+                const selector = document.getElementById(
+                    `status-selector-${id}`,
+                );
+                if (selector) {
+                    const isActive = selector.classList.contains("active");
+
+                    // Close all other selectors
+                    document
+                        .querySelectorAll(".status-selector.active")
+                        .forEach((s) => {
+                            s.classList.remove("active");
+                        });
+
+                    // Toggle current selector
+                    if (!isActive) {
+                        selector.classList.add("active");
+                    }
                 }
             }
 
