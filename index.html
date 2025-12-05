@@ -912,7 +912,7 @@
                     >GitHub</a
                 >
             </p>
-            <div class="version-badge">v1.1.0</div>
+            <div class="version-badge">v1.1.1</div>
         </footer>
 
         <!-- Modal -->
@@ -1188,7 +1188,7 @@
 
         <script>
             // Version
-            const APP_VERSION = "v1.1.0";
+            const APP_VERSION = "v1.1.1";
 
             // Current language
             let currentLang = localStorage.getItem("lang") || "en";
@@ -2162,7 +2162,7 @@
             }
 
             // GitHub API Save Function
-            async function saveToGitHub() {
+            async function saveToGitHub(event) {
                 const token = localStorage.getItem("githubToken");
 
                 if (!token) {
@@ -2185,13 +2185,16 @@
                 const branch = "main";
                 const filePath = "data.json";
 
+                // Get the button element
+                const button = event ? event.target.closest("button") : null;
+                const originalText = button ? button.innerHTML : null;
+
                 try {
                     // Show loading message
-                    const originalText = event?.target?.innerHTML;
-                    if (event?.target) {
-                        event.target.innerHTML =
+                    if (button) {
+                        button.innerHTML =
                             "<span>⏳ " + t("savingToGithub") + "</span>";
-                        event.target.disabled = true;
+                        button.disabled = true;
                     }
 
                     // Prepare data
@@ -2242,9 +2245,9 @@
                         },
                     );
 
-                    if (event?.target) {
-                        event.target.innerHTML = originalText;
-                        event.target.disabled = false;
+                    if (button) {
+                        button.innerHTML = originalText;
+                        button.disabled = false;
                     }
 
                     if (updateResponse.ok) {
@@ -2260,9 +2263,9 @@
                     console.error("Error saving to GitHub:", error);
                     alert(t("saveToGithubError") + "\n\n" + error.message);
 
-                    if (event?.target) {
-                        event.target.innerHTML = originalText;
-                        event.target.disabled = false;
+                    if (button) {
+                        button.innerHTML = originalText;
+                        button.disabled = false;
                     }
                 }
             }
