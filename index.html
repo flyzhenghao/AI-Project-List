@@ -947,7 +947,7 @@
                     >GitHub</a
                 >
             </p>
-            <div class="version-badge">v1.2.2</div>
+            <div class="version-badge">v1.2.3</div>
         </footer>
 
         <!-- Modal -->
@@ -1223,7 +1223,7 @@
 
         <script>
             // Version
-            const APP_VERSION = "v1.2.2";
+            const APP_VERSION = "v1.2.3";
 
             // Current language
             let currentLang = localStorage.getItem("lang") || "en";
@@ -2312,14 +2312,16 @@
                         unescape(encodeURIComponent(content)),
                     );
 
-                    // Get current file SHA
+                    // Get current file SHA (with cache busting)
+                    const timestamp = Date.now();
                     const getResponse = await fetch(
-                        `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?ref=${branch}`,
+                        `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?ref=${branch}&t=${timestamp}`,
                         {
                             headers: {
                                 Authorization: `token ${token}`,
                                 Accept: "application/vnd.github.v3+json",
                             },
+                            cache: "no-cache",
                         },
                     );
 
