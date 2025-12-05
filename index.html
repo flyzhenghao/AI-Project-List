@@ -812,10 +812,17 @@
                     </button>
                     <button
                         class="btn btn-secondary"
-                        onclick="exportDataJson()"
-                        title="Download data.json to update GitHub"
+                        onclick="saveToGitHub()"
+                        title="Save to GitHub automatically"
                     >
-                        💾 <span data-i18n="saveToGithub">Save Data</span>
+                        💾 <span data-i18n="saveToGithub">Save to GitHub</span>
+                    </button>
+                    <button
+                        class="btn btn-secondary"
+                        onclick="openSettingsModal()"
+                        title="GitHub Settings"
+                    >
+                        ⚙️ <span data-i18n="settings">Settings</span>
                     </button>
                     <button class="btn btn-secondary" onclick="exportData()">
                         📤 <span data-i18n="export">Export</span>
@@ -905,7 +912,7 @@
                     >GitHub</a
                 >
             </p>
-            <div class="version-badge">v1.0.1</div>
+            <div class="version-badge">v1.1.0</div>
         </footer>
 
         <!-- Modal -->
@@ -1079,9 +1086,109 @@
             </div>
         </div>
 
+        <!-- Settings Modal -->
+        <div
+            class="modal-overlay"
+            id="settings-modal-overlay"
+            onclick="closeSettingsModal(event)"
+        >
+            <div class="modal" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <h2 class="modal-title" data-i18n="githubSettings">
+                        GitHub Settings
+                    </h2>
+                    <button class="close-btn" onclick="closeSettingsModal()">
+                        &times;
+                    </button>
+                </div>
+                <div class="form" style="padding: 24px">
+                    <div class="form-group">
+                        <label class="label" data-i18n="githubToken"
+                            >GitHub Personal Access Token</label
+                        >
+                        <input
+                            type="password"
+                            class="input"
+                            id="github-token"
+                            data-i18n-placeholder="githubTokenPlaceholder"
+                            placeholder="ghp_xxxxxxxxxxxx"
+                        />
+                        <p
+                            style="
+                                font-size: 12px;
+                                color: #888;
+                                margin-top: 8px;
+                            "
+                        >
+                            <span data-i18n="tokenHelp">Need a token?</span>
+                            <a
+                                href="https://github.com/settings/tokens/new?scopes=repo&description=AI-Project-List"
+                                target="_blank"
+                                style="color: #6366f1"
+                            >
+                                <span data-i18n="createToken"
+                                    >Create one here</span
+                                >
+                            </a>
+                        </p>
+                        <p
+                            style="
+                                font-size: 11px;
+                                color: #666;
+                                margin-top: 8px;
+                            "
+                            data-i18n="tokenStored"
+                        >
+                            Token will be stored securely in your browser.
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label class="label" data-i18n="githubRepo"
+                            >Repository (owner/repo)</label
+                        >
+                        <input
+                            type="text"
+                            class="input"
+                            id="github-repo"
+                            value="flyzhenghao/AI-Project-List"
+                            readonly
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label class="label" data-i18n="githubBranch"
+                            >Branch</label
+                        >
+                        <input
+                            type="text"
+                            class="input"
+                            id="github-branch"
+                            value="main"
+                            readonly
+                        />
+                    </div>
+                    <div class="form-actions">
+                        <button
+                            type="button"
+                            class="btn-cancel"
+                            onclick="closeSettingsModal()"
+                        >
+                            <span data-i18n="cancel">Cancel</span>
+                        </button>
+                        <button
+                            type="button"
+                            class="btn-submit"
+                            onclick="saveGitHubSettings()"
+                        >
+                            <span data-i18n="saveSettings">Save Settings</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script>
             // Version
-            const APP_VERSION = "v1.0.1";
+            const APP_VERSION = "v1.1.0";
 
             // Current language
             let currentLang = localStorage.getItem("lang") || "en";
@@ -1094,7 +1201,8 @@
                     export: "Export",
                     import: "Import",
                     newProject: "New Project",
-                    saveToGithub: "Save Data",
+                    saveToGithub: "Save to GitHub",
+                    settings: "Settings",
                     totalProjects: "Total Projects",
                     completed: "Completed",
                     inProgress: "In Progress",
@@ -1135,6 +1243,23 @@
                     confirmReset:
                         "Are you sure you want to reset all data to default? This will delete all your changes.",
                     resetSuccess: "Data has been reset to default!",
+                    // GitHub Settings
+                    githubSettings: "GitHub Settings",
+                    githubToken: "GitHub Personal Access Token",
+                    githubTokenPlaceholder: "ghp_xxxxxxxxxxxx",
+                    tokenHelp: "Need a token?",
+                    createToken: "Create one here",
+                    tokenStored:
+                        "Token will be stored securely in your browser.",
+                    githubRepo: "Repository (owner/repo)",
+                    githubBranch: "Branch",
+                    saveSettings: "Save Settings",
+                    savingToGithub: "Saving to GitHub...",
+                    savedToGithub: "Successfully saved to GitHub! 🎉",
+                    saveToGithubError:
+                        "Failed to save to GitHub. Please check your token and try again.",
+                    tokenRequired:
+                        "Please set up your GitHub token first in Settings.",
                     // Category translations
                     cat_元产品: "Meta Products",
                     cat_工作: "Work",
@@ -1151,7 +1276,8 @@
                     export: "导出",
                     import: "导入",
                     newProject: "新建项目",
-                    saveToGithub: "保存数据",
+                    saveToGithub: "保存到 GitHub",
+                    settings: "设置",
                     totalProjects: "项目总数",
                     completed: "已完成",
                     inProgress: "进行中",
@@ -1191,6 +1317,21 @@
                     confirmReset:
                         "确定要重置所有数据到默认状态吗？这将删除您的所有修改。",
                     resetSuccess: "数据已重置为默认状态！",
+                    // GitHub Settings
+                    githubSettings: "GitHub 设置",
+                    githubToken: "GitHub 个人访问令牌",
+                    githubTokenPlaceholder: "ghp_xxxxxxxxxxxx",
+                    tokenHelp: "需要令牌？",
+                    createToken: "点击这里创建",
+                    tokenStored: "令牌将安全地存储在您的浏览器中。",
+                    githubRepo: "仓库 (所有者/仓库名)",
+                    githubBranch: "分支",
+                    saveSettings: "保存设置",
+                    savingToGithub: "正在保存到 GitHub...",
+                    savedToGithub: "成功保存到 GitHub！🎉",
+                    saveToGithubError:
+                        "保存到 GitHub 失败，请检查您的令牌后重试。",
+                    tokenRequired: "请先在设置中配置 GitHub 令牌。",
                     // Category translations
                     cat_元产品: "元产品",
                     cat_工作: "工作",
@@ -1979,6 +2120,150 @@
                     renderProjects();
                     updateCategoryFilter();
                     alert(t("resetSuccess"));
+                }
+            }
+
+            // GitHub Settings Functions
+            function openSettingsModal() {
+                const token = localStorage.getItem("githubToken") || "";
+                document.getElementById("github-token").value = token;
+                document
+                    .getElementById("settings-modal-overlay")
+                    .classList.add("active");
+            }
+
+            function closeSettingsModal(event) {
+                if (!event || event.target === event.currentTarget) {
+                    document
+                        .getElementById("settings-modal-overlay")
+                        .classList.remove("active");
+                }
+            }
+
+            function saveGitHubSettings() {
+                const token = document
+                    .getElementById("github-token")
+                    .value.trim();
+                if (token) {
+                    localStorage.setItem("githubToken", token);
+                    alert(
+                        currentLang === "zh"
+                            ? "设置已保存！"
+                            : "Settings saved!",
+                    );
+                    closeSettingsModal();
+                } else {
+                    alert(
+                        currentLang === "zh"
+                            ? "请输入有效的 GitHub Token"
+                            : "Please enter a valid GitHub Token",
+                    );
+                }
+            }
+
+            // GitHub API Save Function
+            async function saveToGitHub() {
+                const token = localStorage.getItem("githubToken");
+
+                if (!token) {
+                    if (
+                        confirm(
+                            t("tokenRequired") +
+                                "\n\n" +
+                                (currentLang === "zh"
+                                    ? "现在打开设置？"
+                                    : "Open settings now?"),
+                        )
+                    ) {
+                        openSettingsModal();
+                    }
+                    return;
+                }
+
+                const owner = "flyzhenghao";
+                const repo = "AI-Project-List";
+                const branch = "main";
+                const filePath = "data.json";
+
+                try {
+                    // Show loading message
+                    const originalText = event?.target?.innerHTML;
+                    if (event?.target) {
+                        event.target.innerHTML =
+                            "<span>⏳ " + t("savingToGithub") + "</span>";
+                        event.target.disabled = true;
+                    }
+
+                    // Prepare data
+                    const dataObj = {
+                        version: APP_VERSION,
+                        lastUpdated: new Date().toISOString(),
+                        projects: projects,
+                    };
+                    const content = JSON.stringify(dataObj, null, 2);
+                    const encodedContent = btoa(
+                        unescape(encodeURIComponent(content)),
+                    );
+
+                    // Get current file SHA
+                    const getResponse = await fetch(
+                        `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?ref=${branch}`,
+                        {
+                            headers: {
+                                Authorization: `token ${token}`,
+                                Accept: "application/vnd.github.v3+json",
+                            },
+                        },
+                    );
+
+                    if (!getResponse.ok) {
+                        throw new Error("Failed to get current file");
+                    }
+
+                    const fileData = await getResponse.json();
+                    const sha = fileData.sha;
+
+                    // Update file
+                    const updateResponse = await fetch(
+                        `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`,
+                        {
+                            method: "PUT",
+                            headers: {
+                                Authorization: `token ${token}`,
+                                Accept: "application/vnd.github.v3+json",
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                message: `Update project data - ${new Date().toISOString()}`,
+                                content: encodedContent,
+                                sha: sha,
+                                branch: branch,
+                            }),
+                        },
+                    );
+
+                    if (event?.target) {
+                        event.target.innerHTML = originalText;
+                        event.target.disabled = false;
+                    }
+
+                    if (updateResponse.ok) {
+                        alert(t("savedToGithub"));
+                    } else {
+                        const errorData = await updateResponse.json();
+                        console.error("GitHub API Error:", errorData);
+                        throw new Error(
+                            errorData.message || "Failed to update file",
+                        );
+                    }
+                } catch (error) {
+                    console.error("Error saving to GitHub:", error);
+                    alert(t("saveToGithubError") + "\n\n" + error.message);
+
+                    if (event?.target) {
+                        event.target.innerHTML = originalText;
+                        event.target.disabled = false;
+                    }
                 }
             }
         </script>
