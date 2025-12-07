@@ -1,6 +1,6 @@
 {
   "version": "v1.3.0",
-  "lastUpdated": "2025-12-05T11:35:25.347Z",
+  "lastUpdated": "2025-12-07T20:46:05.559Z",
   "projects": [
     {
       "name": "产品开发方法论分析",
@@ -146,15 +146,15 @@
       "id": 13
     },
     {
-      "id": 14,
       "name": "Yang 学习作业",
       "nameEn": "rangitoto-review-Y9",
       "category": "学习",
-      "subcategory": "",
+      "subcategory": "Yang Study",
       "status": "done",
       "repo": "",
       "startDate": "",
-      "endDate": ""
+      "endDate": "",
+      "id": 14
     },
     {
       "name": "书籍核心内容提取,动态演示",
@@ -177,6 +177,17 @@
       "startDate": "",
       "endDate": "",
       "id": 16
+    },
+    {
+      "name": "Yang Daily Activity List",
+      "nameEn": "",
+      "category": "学习",
+      "subcategory": "Yang Study",
+      "status": "initial",
+      "repo": "",
+      "startDate": "2025-12-08",
+      "endDate": "",
+      "id": 1765140357464
     }
   ]
 }
