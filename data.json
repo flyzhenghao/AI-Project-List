@@ -1,6 +1,6 @@
 {
   "version": "v1.4.0",
-  "lastUpdated": "2025-12-08T04:45:52.233Z",
+  "lastUpdated": "2025-12-08T10:02:42.530Z",
   "projects": [
     {
       "name": "产品开发方法论分析",
@@ -36,15 +36,15 @@
       "id": 3
     },
     {
-      "id": 4,
       "name": "Next Gen AI Agent",
       "nameEn": "next-gen-ai-agent",
       "category": "工作",
       "subcategory": "",
-      "status": "initial",
-      "repo": "",
+      "status": "ing",
+      "repo": "https://github.com/flyzhenghao/nz-ai-agent",
       "startDate": "",
-      "endDate": ""
+      "endDate": "",
+      "id": 4
     },
     {
       "id": 5,
