@@ -396,6 +396,33 @@
                 line-height: 1.4;
             }
 
+            /* Project name link styles */
+            .project-name-link {
+                font-size: 16px;
+                font-weight: 600;
+                color: #fff;
+                line-height: 1.4;
+                text-decoration: none;
+                transition: all 0.2s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .project-name-link:hover {
+                color: #a5b4fc;
+            }
+
+            .project-name-link .link-icon {
+                font-size: 12px;
+                opacity: 0;
+                transition: opacity 0.2s ease;
+            }
+
+            .project-name-link:hover .link-icon {
+                opacity: 1;
+            }
+
             .card-actions {
                 display: flex;
                 gap: 4px;
@@ -995,7 +1022,7 @@
                     >GitHub</a
                 >
             </p>
-            <div class="version-badge">v1.3.0</div>
+            <div class="version-badge">v1.4.0</div>
         </footer>
 
         <!-- Modal -->
@@ -1271,7 +1298,7 @@
 
         <script>
             // Version
-            const APP_VERSION = "v1.3.0";
+            const APP_VERSION = "v1.4.0";
 
             // Current language
             let currentLang = localStorage.getItem("lang") || "en";
@@ -1334,7 +1361,6 @@
                     createToken: "Create one here",
                     tokenStored:
                         "Token will be stored securely in your browser.",
-                    githubRepo: "Repository (owner/repo)",
                     githubBranch: "Branch",
                     saveSettings: "Save Settings",
                     savingToGithub: "Saving to GitHub...",
@@ -1352,6 +1378,7 @@
                     cat_读书: "Reading",
                     // Subcategory translations
                     "subcat_AI Marketing": "AI Marketing",
+                    "subcat_Yang Study": "Yang Study",
                 },
                 zh: {
                     title: "AI 项目指挥中心",
@@ -1407,7 +1434,6 @@
                     tokenHelp: "需要令牌？",
                     createToken: "点击这里创建",
                     tokenStored: "令牌将安全地存储在您的浏览器中。",
-                    githubRepo: "仓库 (所有者/仓库名)",
                     githubBranch: "分支",
                     saveSettings: "保存设置",
                     savingToGithub: "正在保存到 GitHub...",
@@ -1424,6 +1450,7 @@
                     cat_读书: "读书",
                     // Subcategory translations
                     "subcat_AI Marketing": "AI 营销",
+                    "subcat_Yang Study": "Yang 学习",
                 },
             };
 
@@ -1495,6 +1522,7 @@
             // Subcategory icons
             const subcategoryIcons = {
                 "AI Marketing": "🎯",
+                "Yang Study": "👦",
             };
 
             // Initial projects data
@@ -1506,7 +1534,7 @@
                     category: "元产品",
                     subcategory: "",
                     status: "done",
-                    repo: "",
+                    repo: "https://github.com/flyzhenghao/product-design-methodology-generator",
                     startDate: "",
                     endDate: "",
                 },
@@ -1527,10 +1555,10 @@
                     nameEn: "product-dev-overview",
                     category: "元产品",
                     subcategory: "",
-                    status: "ing",
-                    repo: "",
+                    status: "done",
+                    repo: "https://github.com/flyzhenghao/AI-Project-List",
                     startDate: "",
-                    endDate: "",
+                    endDate: "2025-12-05",
                 },
                 {
                     id: 4,
@@ -1604,8 +1632,8 @@
                     nameEn: "life-journey",
                     category: "生活",
                     subcategory: "",
-                    status: "initial",
-                    repo: "",
+                    status: "ing",
+                    repo: "https://github.com/flyzhenghao/life-journey",
                     startDate: "",
                     endDate: "",
                 },
@@ -1627,7 +1655,7 @@
                     category: "旅行",
                     subcategory: "",
                     status: "done",
-                    repo: "",
+                    repo: "https://github.com/flyzhenghao/2025-Xmas-Camping",
                     startDate: "",
                     endDate: "",
                 },
@@ -1638,7 +1666,7 @@
                     category: "旅行",
                     subcategory: "",
                     status: "done",
-                    repo: "",
+                    repo: "https://github.com/flyzhenghao/2025-Xmas-Trip",
                     startDate: "",
                     endDate: "",
                 },
@@ -1647,7 +1675,7 @@
                     name: "Yang 学习作业",
                     nameEn: "rangitoto-review-Y9",
                     category: "学习",
-                    subcategory: "",
+                    subcategory: "Yang Study",
                     status: "done",
                     repo: "",
                     startDate: "",
@@ -1659,8 +1687,8 @@
                     nameEn: "vant-emergence",
                     category: "读书",
                     subcategory: "",
-                    status: "initial",
-                    repo: "",
+                    status: "done",
+                    repo: "https://github.com/flyzhenghao/vant-emergence",
                     startDate: "",
                     endDate: "",
                 },
@@ -1670,7 +1698,7 @@
                     nameEn: "decision-making-system",
                     category: "读书",
                     subcategory: "",
-                    status: "initial",
+                    status: "done",
                     repo: "https://github.com/flyzhenghao/decision-making-system",
                     startDate: "",
                     endDate: "",
@@ -1725,6 +1753,7 @@
                     const subcategoryMappings = {
                         "street-hiphop-video": "AI Marketing",
                         "Street Hip-hop Video": "AI Marketing",
+                        "rangitoto-review-Y9": "Yang Study",
                     };
 
                     projects = projects.map((p) => {
@@ -1775,6 +1804,19 @@
                 if (!subcat) return "";
                 const key = "subcat_" + subcat;
                 return t(key) || subcat;
+            }
+
+            // Convert GitHub repo URL to GitHub Pages URL
+            function getGitHubPagesUrl(repoUrl) {
+                if (!repoUrl) return null;
+                // Match: https://github.com/owner/repo or https://github.com/owner/repo.git
+                const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/\.]+)/);
+                if (match) {
+                    const owner = match[1];
+                    const repo = match[2];
+                    return `https://${owner}.github.io/${repo}`;
+                }
+                return null;
             }
 
             function updateCategoryFilter() {
@@ -1993,11 +2035,22 @@
                     initial: "📋",
                 };
 
+                // Get GitHub Pages URL if repo exists
+                const pagesUrl = getGitHubPagesUrl(project.repo);
+                
+                // Render project name as link if GitHub Pages URL exists, otherwise as plain text
+                const projectNameHtml = pagesUrl
+                    ? `<a href="${pagesUrl}" target="_blank" class="project-name-link" title="Open GitHub Pages">
+                         ${project.name}
+                         <span class="link-icon">🔗</span>
+                       </a>`
+                    : `<h3 class="project-name">${project.name}</h3>`;
+
                 return `
                 <div class="project-card ${hasSubcategory ? "has-subcategory" : ""}" data-project-id="${project.id}">
                     <div class="card-header">
                         <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
-                            <h3 class="project-name">${project.name}</h3>
+                            ${projectNameHtml}
                             <span class="status-badge ${project.status}"
                                   onclick="toggleStatusSelector(${project.id})"
                                   title="Click to change status">
