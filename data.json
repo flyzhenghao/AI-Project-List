@@ -1,6 +1,6 @@
 {
-  "version": "v1.3.0",
-  "lastUpdated": "2025-12-07T22:51:49.455Z",
+  "version": "v1.4.0",
+  "lastUpdated": "2025-12-08T04:45:52.233Z",
   "projects": [
     {
       "name": "产品开发方法论分析",
@@ -151,7 +151,7 @@
       "category": "学习",
       "subcategory": "Yang Study",
       "status": "done",
-      "repo": "",
+      "repo": "https://github.com/flyzhenghao/rangitoto-review-Y9",
       "startDate": "",
       "endDate": "",
       "id": 14
@@ -183,10 +183,10 @@
       "nameEn": "",
       "category": "学习",
       "subcategory": "Yang Study",
-      "status": "initial",
-      "repo": "",
+      "status": "done",
+      "repo": "https://github.com/flyzhenghao/yang-daily-planner",
       "startDate": "2025-12-08",
-      "endDate": "",
+      "endDate": "2025-12-08",
       "id": 1765140357464
     }
   ]
