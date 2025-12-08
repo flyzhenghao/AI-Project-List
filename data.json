@@ -1,6 +1,6 @@
 {
-  "version": "v1.2.3",
-  "lastUpdated": "2025-12-05T11:27:36.252Z",
+  "version": "v1.3.0",
+  "lastUpdated": "2025-12-07T22:51:49.455Z",
   "projects": [
     {
       "name": "产品开发方法论分析",
@@ -102,15 +102,15 @@
       "endDate": ""
     },
     {
-      "id": 10,
       "name": "你一生的旅程",
       "nameEn": "life-journey",
       "category": "生活",
       "subcategory": "",
-      "status": "initial",
-      "repo": "",
+      "status": "ing",
+      "repo": "https://github.com/flyzhenghao/life-journey",
       "startDate": "",
-      "endDate": ""
+      "endDate": "",
+      "id": 10
     },
     {
       "id": 11,
@@ -146,37 +146,48 @@
       "id": 13
     },
     {
-      "id": 14,
       "name": "Yang 学习作业",
       "nameEn": "rangitoto-review-Y9",
       "category": "学习",
-      "subcategory": "",
+      "subcategory": "Yang Study",
       "status": "done",
       "repo": "",
       "startDate": "",
-      "endDate": ""
+      "endDate": "",
+      "id": 14
     },
     {
-      "id": 15,
       "name": "书籍核心内容提取,动态演示",
       "nameEn": "vant-emergence",
       "category": "读书",
       "subcategory": "",
-      "status": "initial",
-      "repo": "",
+      "status": "done",
+      "repo": "https://github.com/flyzhenghao/vant-emergence",
       "startDate": "",
-      "endDate": ""
+      "endDate": "",
+      "id": 15
     },
     {
-      "id": 16,
       "name": "学以致用:决策系统",
       "nameEn": "decision-making-system",
       "category": "读书",
       "subcategory": "",
-      "status": "initial",
+      "status": "done",
       "repo": "https://github.com/flyzhenghao/decision-making-system",
       "startDate": "",
-      "endDate": ""
+      "endDate": "",
+      "id": 16
+    },
+    {
+      "name": "Yang Daily Activity List",
+      "nameEn": "",
+      "category": "学习",
+      "subcategory": "Yang Study",
+      "status": "initial",
+      "repo": "",
+      "startDate": "2025-12-08",
+      "endDate": "",
+      "id": 1765140357464
     }
   ]
 }
