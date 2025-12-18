@@ -1,6 +1,6 @@
 {
   "version": "v1.4.0",
-  "lastUpdated": "2025-12-18T20:55:18.763Z",
+  "lastUpdated": "2025-12-18T20:56:11.502Z",
   "projects": [
     {
       "name": "产品开发方法论分析",
@@ -190,15 +190,15 @@
       "id": 1765140357464
     },
     {
-      "name": "Family Calendar",
+      "name": "test",
       "nameEn": "",
-      "category": "生活",
+      "category": "元产品",
       "subcategory": "",
-      "status": "ing",
-      "repo": "https://github.com/flyzhenghao/Family-Calendar",
+      "status": "initial",
+      "repo": "",
       "startDate": "",
       "endDate": "",
-      "id": 1766090981963
+      "id": 1766091367069
     }
   ]
 }
