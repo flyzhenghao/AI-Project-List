@@ -1717,69 +1717,106 @@
             });
 
             async function loadProjects() {
-                // Try to load from data.json first
+                // Try to load from localStorage first to have it available for comparison
+                let localData = null;
+                const saved = localStorage.getItem("aiProjects");
+                const savedVersion = localStorage.getItem("aiProjectsVersion");
+                const savedTimestamp = localStorage.getItem(
+                    "aiProjectsLastUpdated",
+                );
+
+                if (saved) {
+                    try {
+                        localData = JSON.parse(saved);
+                    } catch (e) {
+                        console.error("Local data parse error", e);
+                    }
+                }
+
+                // Try to load from data.json
                 try {
                     const response = await fetch("data.json?t=" + Date.now());
                     if (response.ok) {
                         const data = await response.json();
                         if (data.projects && Array.isArray(data.projects)) {
-                            projects = data.projects;
-                            console.log("Loaded projects from data.json");
-                            // Also save to localStorage as backup
-                            saveToStorage();
-                            localStorage.setItem(
-                                "aiProjectsVersion",
-                                APP_VERSION,
-                            );
-                            return;
+                            const remoteTimestamp = data.lastUpdated
+                                ? new Date(data.lastUpdated).getTime()
+                                : 0;
+                            const localTime = savedTimestamp
+                                ? new Date(savedTimestamp).getTime()
+                                : 0;
+
+                            // If local data exists and is strictly newer than remote, keep local
+                            // This protects unsaved changes if "Save to GitHub" failed
+                            if (localData && localTime > remoteTimestamp) {
+                                console.log(
+                                    "Local changes are newer than remote. Keeping local data.",
+                                );
+                                projects = localData;
+                            } else {
+                                console.log("Loading projects from data.json");
+                                projects = data.projects;
+                                // Sync to localStorage so it matches remote
+                                localStorage.setItem(
+                                    "aiProjects",
+                                    JSON.stringify(projects),
+                                );
+                                localStorage.setItem(
+                                    "aiProjectsLastUpdated",
+                                    data.lastUpdated ||
+                                        new Date().toISOString(),
+                                );
+                                localStorage.setItem(
+                                    "aiProjectsVersion",
+                                    APP_VERSION,
+                                );
+                                return;
+                            }
                         }
                     }
                 } catch (error) {
                     console.log(
                         "Could not load data.json, using localStorage fallback",
+                        error,
                     );
                 }
 
-                // Fallback to localStorage or initial data
-                const saved = localStorage.getItem("aiProjects");
-                const dataVersion = localStorage.getItem("aiProjectsVersion");
+                // Fallback to localStorage (if data.json failed or local was newer)
+                if (localData) {
+                    projects = localData;
 
-                // Check if we need to reset to get new default data structure
-                if (saved && dataVersion !== APP_VERSION) {
-                    // Migrate existing data with new subcategory mappings
-                    projects = JSON.parse(saved);
-
-                    // Define subcategory mappings for migration
-                    const subcategoryMappings = {
-                        "street-hiphop-video": "AI Marketing",
-                        "Street Hip-hop Video": "AI Marketing",
-                        "rangitoto-review-Y9": "Yang Study",
-                    };
-
-                    projects = projects.map((p) => {
-                        let subcategory = p.subcategory || "";
-
-                        // Check if this project should have a subcategory
-                        if (
-                            !subcategory &&
-                            (subcategoryMappings[p.nameEn] ||
-                                subcategoryMappings[p.name])
-                        ) {
-                            subcategory =
-                                subcategoryMappings[p.nameEn] ||
-                                subcategoryMappings[p.name];
-                        }
-
-                        return {
-                            ...p,
-                            subcategory,
+                    // Check if we need to migrate existing data
+                    if (savedVersion !== APP_VERSION) {
+                        // Define subcategory mappings for migration
+                        const subcategoryMappings = {
+                            "street-hiphop-video": "AI Marketing",
+                            "Street Hip-hop Video": "AI Marketing",
+                            "rangitoto-review-Y9": "Yang Study",
                         };
-                    });
 
-                    localStorage.setItem("aiProjectsVersion", APP_VERSION);
-                    saveToStorage();
-                } else if (saved) {
-                    projects = JSON.parse(saved);
+                        projects = projects.map((p) => {
+                            let subcategory = p.subcategory || "";
+
+                            // Check if this project should have a subcategory
+                            if (
+                                !subcategory &&
+                                (subcategoryMappings[p.nameEn] ||
+                                    subcategoryMappings[p.name])
+                            ) {
+                                subcategory =
+                                    subcategoryMappings[p.nameEn] ||
+                                    subcategoryMappings[p.name];
+                            }
+
+                            return {
+                                ...p,
+                                subcategory,
+                            };
+                        });
+
+                        localStorage.setItem("aiProjectsVersion", APP_VERSION);
+                        saveToStorage();
+                    }
                 } else {
                     projects = [...initialProjects];
                     localStorage.setItem("aiProjectsVersion", APP_VERSION);
@@ -1789,6 +1826,10 @@
 
             function saveToStorage() {
                 localStorage.setItem("aiProjects", JSON.stringify(projects));
+                localStorage.setItem(
+                    "aiProjectsLastUpdated",
+                    new Date().toISOString(),
+                );
             }
 
             function getCategories() {
@@ -2488,6 +2529,12 @@
                     );
 
                     if (updateResponse.ok) {
+                        // Update local timestamp to match the one we just successfully sent
+                        localStorage.setItem(
+                            "aiProjectsLastUpdated",
+                            dataObj.lastUpdated,
+                        );
+
                         if (button) {
                             button.innerHTML = originalText;
                             button.disabled = false;
