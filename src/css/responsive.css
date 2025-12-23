@@ -1,0 +1,32 @@
+/* AI Project Command Center - Responsive Styles */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .header-actions {
+        width: 100%;
+    }
+
+    .btn {
+        flex: 1;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .subcategory-section {
+        margin-left: 10px;
+        padding-left: 15px;
+    }
+}
