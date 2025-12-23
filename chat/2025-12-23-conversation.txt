@@ -1,0 +1,24 @@
+Conversation transcript (key messages) — 2025-12-23
+
+User: project 新建或编辑界面：
+1. 除了提供 GitHub Repository URL，再加一个字段，网页 url。点击标题，跳转链接优先 网页 url，如果没有，取现有逻辑 根据 GitHub Repository URL 得到 github page 地址。
+2. 再加个 notes 字段。
+
+Assistant: 确认并开始修改仓库文件，更新 `index.html` 表单，保存/编辑逻辑，渲染逻辑与翻译文案，更新 `data.json`。
+
+Assistant actions (high level):
+- 在 `index.html` 表单中添加 `project-web-url` 和 `project-notes` 字段（textarea），并添加样式。
+- 修改 `saveProject`、`editProject`、`openModal` 等 JS 函数以保存/填充新字段。
+- 修改 `renderProjectCard` 使项目标题优先链接 `web_url`，如无则使用 GitHub Pages URL（由 `repo` 计算）。
+- 在 `index.html` 的翻译对象中加入 `webUrl` 和 `notes`（中/英）。
+- 在 `data.json` 中为每个项目添加 `web_url` 和 `notes` 字段（空字符串）。
+
+User: 要我提交、更新 CHANGELOG、升级版本号并推送。
+
+Assistant: 已更新 `data.json`，`index.html`，添加 `CHANGELOG.md`，并将版本号升到 `v1.5.0`（`APP_VERSION` 与 `data.json.version`）。
+
+Git/Local actions executed (by user/assistant interaction):
+- Rebase was in progress; assistant guided to run `git rebase --continue` then `git push -f origin main`.
+- Final push reported earlier as successful.
+
+End of transcript.
