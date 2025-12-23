@@ -745,6 +745,13 @@
                 box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
             }
 
+            .textarea-input {
+                resize: vertical;
+                min-height: 100px;
+                font-family: inherit;
+                line-height: 1.5;
+            }
+
             .status-radio-group {
                 display: flex;
                 gap: 10px;
@@ -1022,7 +1029,7 @@
                     >GitHub</a
                 >
             </p>
-            <div class="version-badge">v1.4.0</div>
+            <div class="version-badge">v1.5.0</div>
         </footer>
 
         <!-- Modal -->
@@ -1151,6 +1158,28 @@
                             id="project-repo"
                             placeholder="https://github.com/username/repo"
                         />
+                    </div>
+                    <div class="form-group">
+                        <label class="label" data-i18n="webUrl"
+                            >Website URL</label
+                        >
+                        <input
+                            type="url"
+                            class="input"
+                            id="project-web-url"
+                            placeholder="https://example.com"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label class="label" data-i18n="notes"
+                            >Notes</label
+                        >
+                        <textarea
+                            class="input textarea-input"
+                            id="project-notes"
+                            placeholder="Add notes about this project..."
+                            rows="4"
+                        ></textarea>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -1333,6 +1362,8 @@
                     statusInProgress: "In Progress",
                     statusDone: "Done",
                     repoUrl: "GitHub Repository URL",
+                    webUrl: "Website URL",
+                    notes: "Notes",
                     startDate: "Planned Start Date",
                     endDate: "Planned End Date",
                     cancel: "Cancel",
@@ -1408,6 +1439,8 @@
                     statusInProgress: "进行中",
                     statusDone: "已完成",
                     repoUrl: "GitHub 仓库地址",
+                    webUrl: "网页地址",
+                    notes: "备注",
                     startDate: "计划开始日期",
                     endDate: "计划结束日期",
                     cancel: "取消",
@@ -2076,12 +2109,12 @@
                     initial: "📋",
                 };
 
-                // Get GitHub Pages URL if repo exists
-                const pagesUrl = getGitHubPagesUrl(project.repo);
+                // Prioritize web_url over GitHub Pages URL
+                const pagesUrl = project.web_url || getGitHubPagesUrl(project.repo);
                 
-                // Render project name as link if GitHub Pages URL exists, otherwise as plain text
+                // Render project name as link if URL exists, otherwise as plain text
                 const projectNameHtml = pagesUrl
-                    ? `<a href="${pagesUrl}" target="_blank" class="project-name-link" title="Open GitHub Pages">
+                    ? `<a href="${pagesUrl}" target="_blank" class="project-name-link" title="Open Project">
                          ${project.name}
                          <span class="link-icon">🔗</span>
                        </a>`
@@ -2209,6 +2242,10 @@
                         project.subcategory || "";
                     document.getElementById("project-repo").value =
                         project.repo;
+                    document.getElementById("project-web-url").value =
+                        project.web_url || "";
+                    document.getElementById("project-notes").value =
+                        project.notes || "";
                     document.getElementById("project-start-date").value =
                         project.startDate;
                     document.getElementById("project-end-date").value =
@@ -2237,6 +2274,8 @@
                 document.getElementById("new-category").value = "";
                 document.getElementById("project-subcategory").value = "";
                 document.getElementById("project-repo").value = "";
+                document.getElementById("project-web-url").value = "";
+                document.getElementById("project-notes").value = "";
                 document.getElementById("project-start-date").value = "";
                 document.getElementById("project-end-date").value = "";
                 selectStatus("initial");
@@ -2304,6 +2343,8 @@
                         .value.trim(),
                     status,
                     repo: document.getElementById("project-repo").value.trim(),
+                    web_url: document.getElementById("project-web-url").value.trim(),
+                    notes: document.getElementById("project-notes").value.trim(),
                     startDate:
                         document.getElementById("project-start-date").value,
                     endDate: document.getElementById("project-end-date").value,
