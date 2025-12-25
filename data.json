@@ -1,6 +1,6 @@
 {
   "version": "v2.0.0",
-  "lastUpdated": "2025-12-24T00:00:00.000Z",
+  "lastUpdated": "2025-12-25T08:34:07.322Z",
   "projects": [
     {
       "name": "产品开发方法论分析",
@@ -94,7 +94,6 @@
       "id": 7
     },
     {
-      "id": 8,
       "name": "个人复盘,人生日记",
       "nameEn": "life-review-diary",
       "category": "生活",
@@ -102,9 +101,10 @@
       "status": "initial",
       "repo": "",
       "web_url": "",
-      "notes": "",
+      "notes": "人生错题本",
       "startDate": "",
-      "endDate": ""
+      "endDate": "",
+      "id": 8
     },
     {
       "id": 9,
