@@ -1,6 +1,6 @@
 {
   "version": "v2.0.0",
-  "lastUpdated": "2025-12-25T08:35:19.956Z",
+  "lastUpdated": "2025-12-25T08:36:41.421Z",
   "projects": [
     {
       "name": "产品开发方法论分析",
@@ -231,7 +231,7 @@
       "status": "ing",
       "repo": "",
       "web_url": "https://family-calendar-app-delta.vercel.app",
-      "notes": "",
+      "notes": "量化人生",
       "startDate": "",
       "endDate": "",
       "id": 1766202414345
@@ -246,6 +246,19 @@
       "startDate": "",
       "endDate": "",
       "id": 1766474232468
+    },
+    {
+      "name": "人生错题本",
+      "nameEn": "",
+      "category": "生活",
+      "subcategory": "",
+      "status": "initial",
+      "repo": "",
+      "web_url": "",
+      "notes": "principles+case study",
+      "startDate": "",
+      "endDate": "",
+      "id": 1766651795622
     }
   ]
 }
