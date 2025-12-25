@@ -1,6 +1,6 @@
 {
   "version": "v2.0.0",
-  "lastUpdated": "2025-12-25T08:34:07.322Z",
+  "lastUpdated": "2025-12-25T08:35:19.956Z",
   "projects": [
     {
       "name": "产品开发方法论分析",
@@ -229,7 +229,9 @@
       "category": "元产品",
       "subcategory": "",
       "status": "ing",
-      "repo": "https://family-calendar-app-delta.vercel.app",
+      "repo": "",
+      "web_url": "https://family-calendar-app-delta.vercel.app",
+      "notes": "",
       "startDate": "",
       "endDate": "",
       "id": 1766202414345
