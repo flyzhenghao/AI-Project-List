@@ -1,6 +1,6 @@
 {
   "version": "v2.0.0",
-  "lastUpdated": "2025-12-25T08:36:54.588Z",
+  "lastUpdated": "2025-12-29T03:57:40.244Z",
   "projects": [
     {
       "name": "产品开发方法论分析",
@@ -94,14 +94,14 @@
       "id": 7
     },
     {
-      "name": "个人复盘,人生日记",
+      "name": "人生复盘",
       "nameEn": "life-review-diary",
       "category": "生活",
       "subcategory": "",
       "status": "initial",
       "repo": "",
       "web_url": "",
-      "notes": "人生错题本",
+      "notes": "复盘最小日课。个人复盘,",
       "startDate": "",
       "endDate": "",
       "id": 8
@@ -127,7 +127,7 @@
       "status": "ing",
       "repo": "https://github.com/flyzhenghao/life-journey",
       "web_url": "",
-      "notes": "",
+      "notes": "你一生的故事",
       "startDate": "",
       "endDate": "",
       "id": 10
