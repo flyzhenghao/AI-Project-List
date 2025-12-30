@@ -1,6 +1,6 @@
 {
   "version": "v2.0.0",
-  "lastUpdated": "2025-12-29T03:57:40.244Z",
+  "lastUpdated": "2025-12-30T04:56:44.371Z",
   "projects": [
     {
       "name": "产品开发方法论分析",
@@ -107,19 +107,6 @@
       "id": 8
     },
     {
-      "id": 9,
-      "name": "时间记录",
-      "nameEn": "time-tracking",
-      "category": "生活",
-      "subcategory": "",
-      "status": "initial",
-      "repo": "",
-      "web_url": "",
-      "notes": "",
-      "startDate": "",
-      "endDate": ""
-    },
-    {
       "name": "你一生的旅程",
       "nameEn": "life-journey",
       "category": "生活",
@@ -220,21 +207,8 @@
       "web_url": "",
       "notes": "",
       "startDate": "2025-12-08",
-      "endDate": "2025-12-08",
+      "endDate": "2025-12-18",
       "id": 1765140357464
-    },
-    {
-      "name": "Family Calendar",
-      "nameEn": "",
-      "category": "元产品",
-      "subcategory": "",
-      "status": "ing",
-      "repo": "",
-      "web_url": "https://family-calendar-app-delta.vercel.app",
-      "notes": "量化人生",
-      "startDate": "",
-      "endDate": "",
-      "id": 1766202414345
     },
     {
       "name": "Travel arrangement",
@@ -259,6 +233,19 @@
       "startDate": "",
       "endDate": "",
       "id": 1766651795622
+    },
+    {
+      "name": "人生日历",
+      "nameEn": "",
+      "category": "生活",
+      "subcategory": "",
+      "status": "ing",
+      "repo": "https://github.com/flyzhenghao/Family-Calendar",
+      "web_url": "https://family-calendar-app-delta.vercel.app",
+      "notes": "整合 calendar， 时间记录，量化人生",
+      "startDate": "2025-12-17",
+      "endDate": "",
+      "id": 1766980698961
     }
   ]
 }
